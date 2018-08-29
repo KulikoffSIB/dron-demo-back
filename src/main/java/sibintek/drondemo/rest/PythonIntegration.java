@@ -1,15 +1,20 @@
 package sibintek.drondemo.rest;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.*;
+import sibintek.drondemo.entity.UserData;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest/userdata")
 public class PythonIntegration {
 
-    @GetMapping
-    public String sendUsersToBroker() {
-        return "works";
+    @Autowired
+    SimpMessagingTemplate template;
+
+    @PostMapping
+    @CrossOrigin(origins = "*", methods = RequestMethod.POST)
+    public void sendUserData(@RequestBody UserData userData) {
+        template.convertAndSend("/topic/message", userData);
     }
 }
