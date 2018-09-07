@@ -5,6 +5,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import sibintek.drondemo.entity.UserData;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/rest/userdata")
 public class PythonIntegration {
@@ -14,7 +16,11 @@ public class PythonIntegration {
 
     @PostMapping
     @CrossOrigin(origins = "*", methods = RequestMethod.POST)
-    public void sendUserData(@RequestBody UserData userData) {
-        template.convertAndSend("/topic/message", userData);
+    public void sendUserData(@RequestBody List<UserData> detectedPersons) {
+
+        detectedPersons.forEach((person) -> System.out.println(person.getUserData()));
+
+
+        template.convertAndSend("/topic/message", detectedPersons);
     }
 }
