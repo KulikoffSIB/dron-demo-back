@@ -10,4 +10,11 @@ public class UserData {
     public void setUserData(String userData) {
         this.userData = userData;
     }
+
+    @Override
+    public String toString() {
+        return "UserData{" +
+                "userData='" + userData + '\'' +
+                '}';
+    }
 }
