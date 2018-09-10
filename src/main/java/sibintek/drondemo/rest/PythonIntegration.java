@@ -18,9 +18,6 @@ public class PythonIntegration {
     @CrossOrigin(origins = "*", methods = RequestMethod.POST)
     public void sendUserData(@RequestBody List<UserData> detectedPersons) {
 
-        detectedPersons.forEach((person) -> System.out.println(person.getUserData()));
-
-
         template.convertAndSend("/topic/message", detectedPersons);
     }
 }
